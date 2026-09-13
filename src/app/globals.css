@@ -1,0 +1,577 @@
+@import "tailwindcss";
+@import "@xyflow/react/dist/style.css";
+
+@theme inline {
+  --color-void-base: #100d18;
+  --color-elevated-surface: #211b2d;
+  --color-deep-panel: #191522;
+  --color-muted-shell: #332b40;
+  --color-border-smoke: #4b4058;
+  --color-ash-text: #e4dfe9;
+  --color-fog-text: #b7adbf;
+  --color-silver-rail: #e5e7eb;
+  --color-cloud-white: #ffffff;
+  --color-steel-muted: #48556a;
+  --color-ember-cta: #fd8925;
+  --color-electric-current: #077ac7;
+  --color-electric-violet: #6b21ef;
+  --color-ember-scorch: #ff492c;
+  --color-crimson-glow: #56312d;
+
+  --color-ink-black: #0e0918;
+  --color-paper-white: #1a1624;
+  --color-cream-surface: #0e0918;
+  --color-lilac-wash: #1b1728;
+  --color-mist-divider: #3e3a46;
+  --color-slate-text: #d1cece;
+  --color-graphite-border: #3e3a46;
+  --color-charcoal-surface: #1a1624;
+
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 28px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  background: #100d18;
+  color: #e4dfe9;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.29px;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid #077ac7;
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(253, 137, 37, 0.28);
+  color: #ffffff;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: 0;
+  z-index: 100;
+  transform: translateY(-120%);
+  border-radius: 8px;
+  background: #ffffff;
+  color: #0e0918;
+  padding: 10px 16px;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  transform: translateY(12px);
+}
+
+.bg-void {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(121, 94, 166, 0.16), transparent 29%),
+    radial-gradient(
+      126.99% 234.27% at 10.15% 142.35%,
+      rgba(217, 126, 75, 0.133) 0%,
+      rgba(255, 255, 255, 0) 37%
+    ),
+    #100d18;
+}
+
+.bg-footer-rose {
+  background:
+    radial-gradient(
+      circle farthest-side at 100% -80%,
+      rgba(175, 106, 140, 0.46),
+      rgba(98, 65, 83, 0.38) 39%,
+      rgba(0, 0, 0, 0) 55%
+    ),
+    #0e0918;
+}
+
+.btn-ember {
+  background: linear-gradient(145deg, #ff9d4e, #ef5b35);
+  border: 1px solid #ffad6b;
+  color: #ffffff;
+}
+
+.btn-ghost {
+  background: linear-gradient(145deg, #332b40, #211b2d);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.btn-frost {
+  background: linear-gradient(145deg, #30283d, #211b2d);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #e4dfe9;
+}
+
+.btn-clay {
+  background: linear-gradient(145deg, #382f45, #241e30);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #f7f2fa;
+}
+
+.btn-clay:disabled {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: #211b2d;
+}
+
+.btn-clay-play {
+  background: linear-gradient(145deg, #ffab62, #f36b3e 60%, #d9462f);
+  border: 1px solid #ffc08a;
+  color: #fff;
+}
+
+/* Google Gemini-style rotating conic border */
+.google-border {
+  position: relative;
+  isolation: isolate;
+  border-radius: 16px;
+  background: #1a1624;
+}
+
+.google-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--google-angle, 0deg),
+    #4285f4,
+    #9b72cb,
+    #d96570,
+    #f2a60c,
+    #4285f4
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: google-spin 4s linear infinite;
+}
+
+.google-border-sm {
+  border-radius: 12px;
+}
+
+.google-border-active::before {
+  animation-duration: 2.2s;
+}
+
+/* Idle nodes keep the conic ring but spin slowly and sit back visually. */
+.google-border-idle::before {
+  animation-duration: 9s;
+  opacity: 0.55;
+}
+
+.sql-flow-node {
+  overflow: visible;
+  border-radius: 22px;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.sql-flow-node-inner {
+  /* Visible so query text can wrap fully — never clip with overflow:hidden. */
+  overflow: visible;
+  border-radius: inherit;
+  box-sizing: border-box;
+}
+
+/*
+ * Idle cards keep the full Gemini conic sweep — slower, slightly softer —
+ * so every node has a travelling border, not just a top accent stripe.
+ */
+.sql-node-card {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--node-accent) 18%, transparent), transparent 46%),
+    linear-gradient(145deg, #3a3047 0%, #292234 55%, #211b2b 100%);
+}
+
+.sql-node-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--node-accent) 72%, white),
+    color-mix(in srgb, var(--node-accent) 28%, #2a2235)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0.62;
+}
+
+.sql-node-card:hover::before {
+  opacity: 0.9;
+}
+
+.sql-node-card:hover {
+  border-color: color-mix(in srgb, var(--node-accent) 42%, white);
+  background:
+    radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--node-accent) 24%, transparent), transparent 46%),
+    linear-gradient(145deg, #40354d 0%, #2d2538 55%, #241d2e 100%);
+}
+
+.sql-node-selected {
+  z-index: 10;
+  border-color: color-mix(in srgb, var(--node-accent) 72%, white);
+  background:
+    radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--node-accent) 32%, transparent), transparent 50%),
+    linear-gradient(145deg, #493b58 0%, #30273b 55%, #241d2f 100%);
+}
+
+.sql-node-selected::before {
+  inset: -3px;
+  padding: 3px;
+  opacity: 1;
+}
+
+@keyframes google-spin {
+  to {
+    --google-angle: 360deg;
+  }
+}
+
+@property --google-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .google-border::before {
+    animation: none;
+    background: linear-gradient(135deg, #4285f4, #9b72cb, #d96570, #f2a60c);
+  }
+
+  .sql-node-card::before {
+    animation: none;
+    background: linear-gradient(135deg, #4285f4, #9b72cb, #d96570, #f2a60c);
+    opacity: 0.85;
+  }
+}
+
+.loading-pulse {
+  animation: loading-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes loading-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-pulse {
+    animation: none;
+    opacity: 0.7;
+  }
+}
+
+.react-flow {
+  background: transparent !important;
+}
+
+.clay-flow-atmosphere {
+  position: relative;
+  background:
+    radial-gradient(circle at 78% 20%, rgba(151, 109, 196, 0.18), transparent 25%),
+    radial-gradient(circle at 18% 78%, rgba(253, 137, 37, 0.12), transparent 28%),
+    linear-gradient(155deg, #1c1726 0%, #16121f 100%);
+}
+
+.clay-chrome,
+.clay-flow-chrome {
+  background: linear-gradient(180deg, #282131 0%, #1c1724 100%);
+}
+
+.clay-flow-chrome {
+  position: relative;
+  z-index: 2;
+}
+
+.clay-flow-atmosphere::before,
+.clay-flow-atmosphere::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  border-radius: 999px;
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.clay-flow-atmosphere::before {
+  width: 180px;
+  height: 180px;
+  right: 8%;
+  top: 12%;
+  background: rgba(111, 79, 151, 0.12);
+}
+
+.clay-flow-atmosphere::after {
+  width: 120px;
+  height: 120px;
+  left: 10%;
+  bottom: 8%;
+  background: rgba(210, 105, 65, 0.09);
+}
+
+.clay-editor,
+.clay-inspector {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+  background: linear-gradient(145deg, #282131, #19151f);
+  overflow: hidden;
+}
+
+.clay-inspector {
+  border-color: rgba(253, 137, 37, 0.48);
+  background: linear-gradient(145deg, #302536, #1d1723);
+}
+
+.clay-stepbar {
+  background: linear-gradient(180deg, #292233 0%, #1d1826 100%);
+}
+
+.clay-track {
+  background: #17131e;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.clay-track-fill {
+  background: linear-gradient(90deg, #5b8eee, #a879d4, #ff8f4c);
+}
+
+.clay-thumb {
+  border: 3px solid #ffffff;
+  background: linear-gradient(145deg, #fff5ec, #ff9959);
+}
+
+.clay-speed-active {
+  background: linear-gradient(145deg, #4d405d, #30263b);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.react-flow__attribution {
+  display: none;
+}
+
+.react-flow__controls {
+  box-shadow: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #2b2335;
+}
+
+.react-flow__controls-button {
+  background: #2b2335 !important;
+  border: none !important;
+  border-bottom: 1px solid #3e3a46 !important;
+  fill: #e4dfe9 !important;
+}
+
+.react-flow__controls-button:hover {
+  background: #2c2834 !important;
+}
+
+.react-flow__edge-path {
+  stroke: #077ac7 !important;
+  stroke-width: 1.6 !important;
+}
+
+.react-flow__edge.selected .react-flow__edge-path,
+.react-flow__edge:focus .react-flow__edge-path {
+  stroke: #6b21ef !important;
+}
+
+/* Editor: a textarea layered under a painted, tokenized copy of the same text.
+   Both layers must share identical font metrics, padding and wrapping. */
+.sql-editor-body {
+  --sql-font: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sql-size: 13px;
+  --sql-line: 20px;
+  --sql-pad-y: 16px;
+  --sql-pad-x: 12px;
+}
+
+.sql-gutter {
+  font-family: var(--sql-font);
+  font-size: var(--sql-size);
+  line-height: var(--sql-line);
+  min-width: 3rem;
+}
+
+.sql-layer {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: var(--sql-pad-y) var(--sql-pad-x);
+  font-family: var(--sql-font);
+  font-size: var(--sql-size);
+  line-height: var(--sql-line);
+  letter-spacing: 0;
+  tab-size: 2;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow: auto;
+  border: 0;
+}
+
+.sql-paint {
+  pointer-events: none;
+  color: #d1cece;
+  overflow: hidden;
+}
+
+.sql-input {
+  resize: none;
+  background: transparent;
+  color: transparent;
+  caret-color: #fd8925;
+  outline: none;
+}
+
+.sql-input::selection {
+  background: rgba(7, 122, 199, 0.4);
+}
+
+.sql-placeholder {
+  color: #6a6472;
+}
+
+/* Everything outside the active step dims so the current clause reads first. */
+.sql-dim {
+  opacity: 0.78;
+  transition: opacity 0.3s ease;
+}
+
+.sql-active {
+  background: rgba(253, 137, 37, 0.2);
+  outline: 1px solid rgba(253, 137, 37, 0.45);
+  border-radius: 3px;
+  color: inherit;
+}
+
+.tok-keyword {
+  color: #fd8925;
+}
+
+.tok-string {
+  color: #7ee787;
+}
+
+.tok-number {
+  color: #6fb6ff;
+}
+
+.tok-comment {
+  color: #6a6472;
+  font-style: italic;
+}
+
+.tok-ident {
+  color: #e5e7eb;
+}
+
+.tok-op {
+  color: #9d9797;
+}
+
+.flow-arrow {
+  animation: flow-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes flow-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-arrow {
+    animation: none;
+    transition: none;
+  }
+}
+
+.react-flow__edge.animated .react-flow__edge-path {
+  stroke-dasharray: 6 6;
+  animation: dash-flow 0.9s linear infinite;
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .react-flow__edge.animated .react-flow__edge-path {
+    animation: none;
+    stroke-dasharray: none;
+  }
+}
